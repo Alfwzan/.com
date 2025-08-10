@@ -185,6 +185,20 @@
       box-shadow: 2px 6px 20px rgba(162,122,31,0.5);
     }
 
+    /* فيديو */
+    .video-container {
+      margin: 30px auto;
+      max-width: 720px;
+      text-align: center;
+    }
+
+    .video-container video {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(162,122,31,0.3);
+      user-select: none;
+    }
+
     /* زر التسجيل */
     .register-button {
       background-color: #a27a1f;
@@ -333,12 +347,22 @@
       بهدف تعليم القرآن الكريم حفظاً وتجويداً وتفسيراً، في بيئة إيمانية تربوية بإشراف نخبة من المعلمين.
     </p>
 
+    <!-- فيديو -->
+    <div class="video-container">
+      <video controls preload="metadata" poster="images/video-poster.jpg">
+        <source src="images/fwzan v 1.mp4" type="video/mp4" />
+        متصفحك لا يدعم تشغيل الفيديو.
+      </video>
+    </div>
+
     <!-- صور -->
     <div class="images-gallery">
       <img src="images/alfwzan.jpg" alt="صورة الحلقات 1" />
       <img src="images/alfwzan26.jpg" alt="صورة الحلقات 2" />
       <img src="images/alfwzan24.jpg" alt="صورة الحلقات 3" />
     </div>
+
+
 
     <div><h1>للتسجيل عبر الرابط التالي</h1></div>
 
