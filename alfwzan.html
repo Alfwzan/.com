@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>مجمع حلقات الفوزان</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* إعدادات عامة */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      direction: rtl;
+      font-family: "Amiri", serif;
+      background-color: #fef7f0;
+      color: #4b3a1b;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* حروف خلفية شفافة */
+    .background-letters {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      font-family: 'Amiri', serif;
+    }
+    .background-letters span {
+      position: absolute;
+      color: rgba(75, 58, 27, 0.05);
+      font-size: 15rem;
+      font-weight: 900;
+      user-select: none;
+      white-space: nowrap;
+      transform-origin: center;
+    }
+    .letter1 { top: 5%; left: 10%; transform: rotate(-15deg);}
+    .letter2 { top: 25%; right: 15%; transform: rotate(20deg);}
+    .letter3 { top: 55%; left: 20%; transform: rotate(-10deg);}
+    .letter4 { top: 65%; right: 30%; transform: rotate(10deg);}
+    .letter5 { top: 80%; left: 60%; transform: rotate(-20deg);}
+    .letter6 { top: 40%; right: 50%; transform: rotate(25deg);}
+
+    /* الهيدر */
+    .header {
+      background: linear-gradient(135deg, #a27a1f, #5a3c0d);
+      padding: 15px 20px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-container {
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      width: 90px;
+      filter: drop-shadow(0 0 3px rgba(0,0,0,0.2));
+      user-select: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .nav-links a {
+      color: #fff7db;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 12px;
+      transition: background-color 0.3s, color 0.3s;
+      user-select: none;
+    }
+
+    .nav-links a:hover {
+      background-color: #f0d884;
+      color: #5a3c0d;
+      font-weight: 900;
+    }
+
+    /* العناوين */
+    .landing-page {
+      background-color: #e4d5b7;
+      color: #5a3c0d;
+      text-align: center;
+      padding: 40px 20px;
+      border-radius: 20px;
+      margin: 30px auto 0;
+      max-width: 900px;
+      box-shadow: 0 6px 15px rgba(162,122,31,0.3);
+      position: relative;
+      z-index: 5;
+      font-weight: 700;
+      font-size: 28px;
+      user-select: none;
+    }
+
+    .about-section {
+      background-color: #fff8e1;
+      padding: 30px 20px;
+      text-align: center;
+      flex-grow: 1;
+      border-radius: 20px;
+      max-width: 900px;
+      margin: 40px auto;
+      box-shadow: 0 6px 15px rgba(162,122,31,0.2);
+      position: relative;
+      z-index: 5;
+      color: #4b3a1b;
+    }
+
+    .about-section h2 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      font-weight: 700;
+      text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
+      user-select: none;
+    }
+
+    .about-section h3 {
+      font-size: 20px;
+      font-weight: 400;
+      margin: 0;
+      user-select: none;
+    }
+
+    /* زر التسجيل */
+    .register-button {
+      display: block;
+      width: fit-content;
+      margin: 30px auto 40px;
+      padding: 14px 36px;
+      font-size: 20px;
+      background-color: #a27a1f;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 5px 12px rgba(162,122,31,0.7);
+      transition: background-color 0.3s ease;
+      text-align: center;
+      user-select: none;
+    }
+
+    .register-button:hover {
+      background-color: #d4b83d;
+      color: #4b3a1b;
+      box-shadow: 0 8px 20px rgba(212,184,61,0.9);
+    }
+
+    /* الفوتر */
+    .footer {
+      background-color: #5a3c0d;
+      color: #fff7db;
+      text-align: center;
+      padding: 15px 10px;
+      font-size: 14px;
+      margin-top: auto;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 -3px 15px rgba(0,0,0,0.1);
+      user-select: none;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* نافذة تكبير الصور */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 50px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .image-modal img {
+      display: block;
+      margin: auto;
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      user-select: none;
+      box-shadow: 0 0 20px rgba(255,255,255,0.7);
+    }
+
+    .image-modal span {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    .image-modal span:hover {
+      color: #d4b83d;
+    }
+
+    /* استجابة الهواتف */
+    @media (max-width: 768px) {
+      .logo {
+        width: 70px;
+      }
+
+      .register-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        width: 90%;
+        max-width: none;
+      }
+
+      .about-section h2 {
+        font-size: 24px;
+      }
+
+      .about-section h3 {
+        font-size: 18px;
+      }
+
+      .landing-page {
+        font-size: 22px;
+        padding: 30px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- حروف خلفية شفافة -->
+  <div class="background-letters" aria-hidden="true">
+    <span class="letter1">ق</span>
+    <span class="letter2">ف</span>
+    <span class="letter3">ز</span>
+    <span class="letter4">ل</span>
+    <span class="letter5">ق</span>
+    <span class="letter6">ف</span>
+  </div>
+
+  <!-- الهيدر -->
+  <div class="header">
+    <div class="logo-container">
+      <a href="index.html">
+        <img class="logo" src="images/jama alfwzan.png" alt="شعار" />
+      </a>
+    </div>
+
+    <div class="nav-links">
+      <a href="test.html">عن الحلقة</a>
+      <a href="#register">التسجيل</a>
+      <a href="alfwzane.html">تواصل معنا</a>
+      <a href="https://store.maknon.org.sa/ePdABKB">للتبرع</a>
+    </div>
+  </div>
+
+  <div class="landing-page">
+    <h1>يتم العمل على قسم لمتابعة الطلاب (شكراً لتفهمكم)</h1>
+  </div>
+
+  <div class="about-section">
+    <h2>الحلقة الرائدة</h2>
+    <h3>هي حلقة حفظ للمتقدمين ويتم المراجعة والحفظ فيها بكميات كبيرة</h3>
+  </div>
+
+  <div class="about-section">
+    <h2>حلقة الاتقان</h2>
+    <h3>هي حلقة لمن ختم كتاب الله ويتم المراجعة فيها بكميات كبيرة ويتم اخذ فيها الاجازات</h3>
+  </div>
+
+  <div class="about-section">
+    <h2>حلقة احمد ابن حنبل</h2>
+    <h3>هي حلقة لطلاب المرحلة الثانوية ويتم الحفظ والمراجعة فيها على حسب مقدرة الطالب</h3>
+  </div>
+
+  <!-- زر التسجيل -->
+  <a id="register" href="" class="register-button">
+    التسجيل الآن
+  </a>
+
+  <!-- نافذة تكبير الصور -->
+  <div id="myModal" class="image-modal">
+    <span id="closeModal">&times;</span>
+    <img id="modalImage" src="" alt="">
+  </div>
+
+  <!-- الفوتر -->
+  <div class="footer">
+    جميع الحقوق محفوظة © مجمع حلقات الفوزان 1447 هـ
+  </div>
+
+  <script>
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("modalImage");
+    const closeModal = document.getElementById("closeModal");
+
+    document.querySelectorAll(".images-gallery img").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+      });
+    });
+
+    closeModal.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>

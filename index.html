@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>مجمع حلقات الفوزان</title>
+
+  <!-- خطوط جوجل -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Scheherazade+New&display=swap" rel="stylesheet" />
+
+  <style>
+    /* إعادة تعيين بعض القيم */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background-color: #fef7f0;
+      color: #4b3a1b;
+      direction: rtl;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* الحروف الكبيرة المبعثرة في الخلفية */
+    .background-letters {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+      font-family: 'Scheherazade New', serif;
+    }
+    .background-letters span {
+      position: absolute;
+      color: rgba(75, 58, 27, 0.05);
+      font-size: 15rem;
+      font-weight: 900;
+      user-select: none;
+      white-space: nowrap;
+      transform-origin: center;
+    }
+
+    /* توزيع الحروف */
+    .letter1 { top: 5%; left: 10%; transform: rotate(-15deg);}
+    .letter2 { top: 25%; right: 15%; transform: rotate(20deg);}
+    .letter3 { top: 55%; left: 20%; transform: rotate(-10deg);}
+    .letter4 { top: 65%; right: 30%; transform: rotate(10deg);}
+    .letter5 { top: 80%; left: 60%; transform: rotate(-20deg);}
+    .letter6 { top: 40%; right: 50%; transform: rotate(25deg);}
+
+    /* الهيدر */
+    .header {
+      background: linear-gradient(135deg, #a27a1f, #5a3c0d);
+      padding: 25px 20px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.15);
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+
+    .logo-container {
+      margin-bottom: 15px;
+    }
+
+    .logo {
+      width: 120px;
+      filter: drop-shadow(0 0 3px rgba(0,0,0,0.2));
+      user-select: none;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .nav-links a {
+      color: #fff7db;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 12px;
+      transition: background-color 0.3s, color 0.3s;
+      user-select: none;
+    }
+
+    .nav-links a:hover {
+      background-color: #f0d884;
+      color: #5a3c0d;
+      font-weight: 900;
+    }
+
+    /* الصفحة الرئيسية */
+    .landing-page {
+      background-color: #e4d5b7;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      z-index: 5;
+      border-radius: 20px;
+      margin: 30px auto 0;
+      max-width: 900px;
+      box-shadow: 0 6px 15px rgba(162,122,31,0.3);
+    }
+
+    .landing-page h1 {
+      font-family: 'Scheherazade New', serif;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      color: #5a3c0d;
+      text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
+    }
+
+    .landing-page p {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #3c2f0f;
+      text-shadow: 1px 1px 1px rgba(255,255,255,0.4);
+    }
+
+    /* عن المدرسة */
+    .about-section {
+      background-color: #fff8e1;
+      padding: 50px 20px;
+      margin: 40px auto;
+      border-radius: 20px;
+      max-width: 900px;
+      box-shadow: 0 6px 15px rgba(162,122,31,0.2);
+      text-align: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .about-section h2 {
+      font-family: 'Scheherazade New', serif;
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+      color: #5a3c0d;
+      font-weight: 700;
+      text-shadow: 1px 1px 1px rgba(255,255,255,0.7);
+    }
+
+    .about-section p {
+      font-size: 1.3rem;
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 2;
+      color: #4b3a1b;
+    }
+
+    /* معرض الصور */
+    .images-gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 35px;
+    }
+
+    .images-gallery img {
+      width: 260px;
+      height: 160px;
+      border-radius: 15px;
+      object-fit: cover;
+      cursor: pointer;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+      user-select: none;
+    }
+
+    .images-gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 2px 6px 20px rgba(162,122,31,0.5);
+    }
+
+    /* زر التسجيل */
+    .register-button {
+      background-color: #a27a1f;
+      color: white;
+      padding: 14px 36px;
+      font-size: 1.3rem;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      margin: 40px auto 0;
+      display: block;
+      max-width: 280px;
+      font-weight: 700;
+      box-shadow: 0 5px 12px rgba(162,122,31,0.7);
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      text-align: center;
+      user-select: none;
+    }
+
+    .register-button:hover {
+      background-color: #d4b83d;
+      color: #4b3a1b;
+      box-shadow: 0 8px 20px rgba(212,184,61,0.9);
+    }
+
+    /* الفوتر */
+    .footer {
+      background-color: #5a3c0d;
+      color: #fff7db;
+      text-align: center;
+      padding: 20px 15px;
+      font-size: 1rem;
+      margin-top: auto;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      box-shadow: 0 -3px 15px rgba(0,0,0,0.1);
+      user-select: none;
+    }
+
+    /* نافذة عرض الصور */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      padding-top: 50px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .image-modal img {
+      display: block;
+      margin: auto;
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+      user-select: none;
+      box-shadow: 0 0 20px rgba(255,255,255,0.7);
+    }
+
+    .image-modal span {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 42px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+
+    .image-modal span:hover {
+      color: #d4b83d;
+    }
+
+    /* استجابة الهواتف */
+    @media (max-width: 768px) {
+      .landing-page h1 {
+        font-size: 2rem;
+      }
+      .landing-page p {
+        font-size: 1.1rem;
+      }
+      .about-section h2 {
+        font-size: 1.8rem;
+      }
+      .about-section p {
+        font-size: 1rem;
+      }
+      .images-gallery img {
+        width: 90%;
+        height: auto;
+      }
+      .register-button {
+        width: 90%;
+        font-size: 1.1rem;
+        padding: 12px;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- حروف مبعثرة في الخلفية -->
+  <div class="background-letters" aria-hidden="true">
+    <span class="letter1">ق</span>
+    <span class="letter2">ف</span>
+    <span class="letter3">ز</span>
+    <span class="letter4">ل</span>
+    <span class="letter5">ق</span>
+    <span class="letter6">ف</span>
+  </div>
+
+  <!-- الهيدر -->
+  <div class="header">
+    <div class="logo-container">
+      <a href="index.html">
+        <img class="logo" src="images/jama alfwzan.png" alt="شعار" />
+      </a>
+    </div>
+
+    <div class="nav-links">
+      <a href="test.html">عن الحلقة</a>
+      <a href="alfwzan.html">الحلقات</a>
+      <a href="#register">التسجيل</a>
+      <a href="alfwzane.html">تواصل معنا</a>
+      <a href="https://store.maknon.org.sa/ePdABKB">للتبرع</a>
+    </div>
+  </div>
+
+  <!-- الصفحة الرئيسية -->
+  <div class="landing-page">
+    <h1>مرحباً بكم في مدرسة الفوزان لتحفيظ القرآن الكريم</h1>
+    <p>تعلم كتاب الله غاية، وسلوك وطريق أهل الجنة</p>
+  </div>
+
+  <!-- عن المدرسة -->
+  <div id="about" class="about-section">
+    <h2>نبذة عن الحلقة</h2>
+    <p>
+      تأسست الحلقات عام 1425هـ بجامع الفوزان (الرويل سابقاً)، .  
+      بهدف تعليم القرآن الكريم حفظاً وتجويداً وتفسيراً، في بيئة إيمانية تربوية بإشراف نخبة من المعلمين.
+    </p>
+
+    <!-- صور -->
+    <div class="images-gallery">
+      <img src="images/alfwzan.jpg" alt="صورة الحلقات 1" />
+      <img src="images/alfwzan26.jpg" alt="صورة الحلقات 2" />
+      <img src="images/alfwzan24.jpg" alt="صورة الحلقات 3" />
+    </div>
+
+    <div><h1>للتسجيل عبر الرابط التالي</h1></div>
+
+    <!-- زر التسجيل -->
+    <a id="register" href="" class="register-button">
+      التسجيل الآن
+    </a>
+  </div>
+
+  <!-- نافذة تكبير الصور -->
+  <div id="myModal" class="image-modal">
+    <span id="closeModal">&times;</span>
+    <img id="modalImage" src="" alt="">
+  </div>
+
+  <!-- الفوتر -->
+  <div class="footer">
+    جميع الحقوق محفوظة © مجمع حلقات الفوزان 1447 هـ
+  </div>
+
+  <script>
+    // تكبير الصور
+    const modal = document.getElementById("myModal");
+    const modalImg = document.getElementById("modalImage");
+    const closeModal = document.getElementById("closeModal");
+
+    document.querySelectorAll(".images-gallery img").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+      });
+    });
+
+    closeModal.onclick = () => {
+      modal.style.display = "none";
+    };
+
+    modal.onclick = (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+  </script>
+</body>
+</html>
